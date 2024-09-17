@@ -1,3 +1,16 @@
+### Some commits
+
+(проверяем, установлен ли тайпскрипт на компьютере глобально
+https://bobbyhadz.com/blog/npm-check-which-version-of-typescript-is-installed)
+
+npm ls -g typescript
+npx tsc -v
+npx ts-node -v
+
+---
+
+tsc --init (создаем файл tsconfig.json)
+
 # Redux Essentials Tutorial Example
 
 This project contains the setup and code from the "Redux Essentials" tutorial example app in the Redux docs ( https://redux.js.org/tutorials/essentials/part-3-data-flow ).

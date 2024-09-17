@@ -1,7 +1,8 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 // import { nanoid } from '@reduxjs/toolkit'
-import { useAppDispatch } from '@/api/hook'
+import { selectAllUsers } from '@/features/users/usersSlice'
+import { useAppDispatch, useAppSelector } from '@/api/hook'
 import { type Post, postAdded } from './postSlice'
 
 // TS types for the input fields
@@ -9,6 +10,7 @@ import { type Post, postAdded } from './postSlice'
 interface AddPostFormFields extends HTMLFormControlsCollection {
   postTitle: HTMLInputElement
   postContent: HTMLTextAreaElement
+  postAuthor: HTMLInputElement
 }
 interface AddPostFormElements extends HTMLFormElement {
   readonly elements: AddPostFormFields
@@ -18,6 +20,7 @@ export const AddPostForm = () => {
   // Get the `dispatch` method from the store
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const users = useAppSelector(selectAllUsers)
 
   const handleSubmit = (e: React.FormEvent<AddPostFormElements>) => {
     // Prevent server submission
@@ -26,6 +29,7 @@ export const AddPostForm = () => {
     const { elements } = e.currentTarget
     const title = elements.postTitle.value
     const content = elements.postContent.value
+    const userId = elements.postAuthor.value
 
     // // Create the post object and dispatch the `postAdded` action
     // const newPost: Post = {
@@ -38,12 +42,18 @@ export const AddPostForm = () => {
     // instead of this (see "postSlice")
     // ____Now we can pass these in as separate arguments,
     // ______and the ID will be generated automatically
-    dispatch(postAdded(title, content))
+    dispatch(postAdded(title, content, userId))
     navigate('/posts')
 
     // console.log('Values: ', { title, content })
     e.currentTarget.reset()
   }
+
+  const usersOptions = users.map((user) => (
+    <option key={user.id} value={user.id}>
+      {user.name}
+    </option>
+  ))
 
   return (
     <section>
@@ -51,6 +61,11 @@ export const AddPostForm = () => {
       <form onSubmit={handleSubmit}>
         <label htmlFor="postTitle">Post Title:</label>
         <input type="text" id="postTitle" defaultValue="" required />
+        <label htmlFor="postAuthor">Author:</label>
+        <select id="postAuthor" name="postAuthor" required>
+          <option value=""></option>
+          {usersOptions}
+        </select>
         <label htmlFor="postContent">Content:</label>
         <textarea id="postContent" name="postContent" defaultValue="" required />
         <button>Save Post</button>
