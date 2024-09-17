@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 // import { nanoid } from '@reduxjs/toolkit'
-import { selectAllUsers } from '@/features/users/usersSlice'
+import { selectCurrentUsername } from '@/features/auth/authSlice'
 import { useAppDispatch, useAppSelector } from '@/api/hook'
 import { type Post, postAdded } from './postSlice'
 
@@ -20,7 +20,7 @@ export const AddPostForm = () => {
   // Get the `dispatch` method from the store
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const users = useAppSelector(selectAllUsers)
+  const users = useAppSelector(selectCurrentUsername)!
 
   const handleSubmit = (e: React.FormEvent<AddPostFormElements>) => {
     // Prevent server submission
@@ -49,11 +49,11 @@ export const AddPostForm = () => {
     e.currentTarget.reset()
   }
 
-  const usersOptions = users.map((user) => (
-    <option key={user.id} value={user.id}>
-      {user.name}
-    </option>
-  ))
+  // const usersOptions = users.map((user) => (
+  //   <option key={user.id} value={user.id}>
+  //     {user.name}
+  //   </option>
+  // ))
 
   return (
     <section>
@@ -61,11 +61,11 @@ export const AddPostForm = () => {
       <form onSubmit={handleSubmit}>
         <label htmlFor="postTitle">Post Title:</label>
         <input type="text" id="postTitle" defaultValue="" required />
-        <label htmlFor="postAuthor">Author:</label>
+        {/* <label htmlFor="postAuthor">Author:</label>
         <select id="postAuthor" name="postAuthor" required>
           <option value=""></option>
           {usersOptions}
-        </select>
+        </select> */}
         <label htmlFor="postContent">Content:</label>
         <textarea id="postContent" name="postContent" defaultValue="" required />
         <button>Save Post</button>
