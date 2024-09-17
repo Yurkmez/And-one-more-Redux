@@ -1,5 +1,6 @@
 import { useAppSelector } from '@/api/hook'
 import { PostAuthor } from './PostAuthor'
+import { TimeAgo } from '../TimeAgo'
 import { Link } from 'react-router-dom'
 import { selectAllPosts } from './postSlice'
 
@@ -13,6 +14,8 @@ export const PostsList = () => {
         <Link to={`/posts/${post.id}`}>{post.title}</Link>
       </h3>
       <PostAuthor userId={post.user} />
+      <TimeAgo timestamp={post.date} />
+
       <p className="post-content">{post.content.substring(0, 100)}</p>
     </article>
   ))
