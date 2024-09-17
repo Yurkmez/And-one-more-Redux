@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { nanoid } from '@reduxjs/toolkit'
 import { sub } from 'date-fns'
 import type { RootState } from '@/api/store'
-
+import { userLoggedOut } from '@/features/auth/authSlice'
 // Define a TS type for the data we'll be using
 
 export interface Reactions {
@@ -71,9 +71,16 @@ const postsSlice = createSlice({
       reducer(state, action: PayloadAction<Post>) {
         state.push(action.payload)
       },
-      prepare(title: string, content: string, userId: string, reactions: Reactions) {
+      prepare(title: string, content: string, userId: string) {
         return {
-          payload: { id: nanoid(), title, content, user: userId, date: new Date().toISOString(), reactions },
+          payload: {
+            id: nanoid(),
+            title,
+            content,
+            user: userId,
+            date: new Date().toISOString(),
+            reactions: initialReactions,
+          },
         }
       },
     },
@@ -92,6 +99,19 @@ const postsSlice = createSlice({
         existingPost.reactions[reaction]++
       }
     },
+  },
+  // createSlice принимает опцию с именем extraReducers,
+  // которая может использоваться для прослушивания
+  // slice действий, которые были определены в другом месте
+  // приложения. (addCase, addMatcher - прослушивает любой из нескольких типов
+  // addDefaultCase - эквивалентно default регистру внутри switch)
+
+  extraReducers: (builder) => {
+    // Pass the action creator to `builder.addCase()`
+    builder.addCase(userLoggedOut, (state) => {
+      // Clear out the list of posts whenever the user logs out
+      return []
+    })
   },
 })
 

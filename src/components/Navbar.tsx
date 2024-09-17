@@ -24,6 +24,7 @@ export const Navbar = () => {
       <div className="navContent">
         <div className="navLinks">
           <Link to="/posts">Posts</Link>
+          <Link to="/addPost">Add Post</Link>
         </div>
         <div className="userDetails">
           <UserIcon size={32} />

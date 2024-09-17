@@ -20,7 +20,7 @@ export const AddPostForm = () => {
   // Get the `dispatch` method from the store
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const users = useAppSelector(selectCurrentUsername)!
+  const userId = useAppSelector(selectCurrentUsername)!
 
   const handleSubmit = (e: React.FormEvent<AddPostFormElements>) => {
     // Prevent server submission
@@ -29,7 +29,6 @@ export const AddPostForm = () => {
     const { elements } = e.currentTarget
     const title = elements.postTitle.value
     const content = elements.postContent.value
-    const userId = elements.postAuthor.value
 
     // // Create the post object and dispatch the `postAdded` action
     // const newPost: Post = {
