@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import { PostsList } from './features/posts/PostsList'
 import { Navbar } from './components/Navbar'
 import { AddPostForm } from './features/posts/AddPostForm'
-import PostsMainPage from './features/posts/PostsMainPage'
+import { PostsMainPage } from './features/posts/PostsMainPage'
 import { SinglePostPage } from './features/posts/SinglePostPage'
 import { EditPostForm } from './features/posts/EditPostForm'
 import { LoginPage } from './features/auth/LoginPage'
@@ -33,9 +33,8 @@ function App() {
               <ProtectedRoute>
                 <Routes>
                   {/* <Route path="/posts" element={<PostsMainPage />} /> */}
-                  <Route path="/posts" element={<PostsList />}></Route>
+                  <Route path="/posts" element={<PostsMainPage />}></Route>
                   <Route path="/posts/:postId" element={<SinglePostPage />} />
-                  <Route path="/addPost" element={<AddPostForm />}></Route>
                   <Route path="/editPost/:postId" element={<EditPostForm />} />
                 </Routes>
               </ProtectedRoute>

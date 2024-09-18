@@ -1,5 +1,11 @@
-const PostsMainPage = () => {
-  return <div>PostsMainPage</div>
-}
+import { PostsList } from './PostsList'
+import { AddPostForm } from './AddPostForm'
 
-export default PostsMainPage
+export function PostsMainPage() {
+  return (
+    <div>
+      <AddPostForm />
+      <PostsList />
+    </div>
+  )
+}

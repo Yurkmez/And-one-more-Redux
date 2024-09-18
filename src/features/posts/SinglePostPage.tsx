@@ -37,6 +37,9 @@ export const SinglePostPage = () => {
             Edit Post
           </Link>
         )}
+        <Link to="/posts" className="button">
+          Returt to Posts
+        </Link>
       </article>
     </section>
   )

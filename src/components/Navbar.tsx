@@ -22,10 +22,7 @@ export const Navbar = () => {
 
     navContent = (
       <div className="navContent">
-        <div className="navLinks">
-          <Link to="/posts">Posts</Link>
-          <Link to="/addPost">Add Post</Link>
-        </div>
+        <div className="navLinks">{/* <Link to="/posts">Posts</Link> */}</div>
         <div className="userDetails">
           <UserIcon size={32} />
           {user.name}
